@@ -53,7 +53,7 @@ card.forEach(function(el, index) {
         if(game.length === 2) {
             if(+game[0].number === +game[1].number) {
                 point++;
-                pointItem.innerHTML = 'Количество очков:' + '' + point;
+                pointItem.innerHTML = 'Количество очков:' + ' ' + point;
                 game = [];
             }else{
                 card[game[0].index].classList.remove('card-active');
