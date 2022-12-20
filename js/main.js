@@ -46,14 +46,15 @@ shuffle(generated);
 card.forEach(function(el, index) {
     num[index].innerHTML = generated[index];
     el.addEventListener('click', () => {
+        el.classList.add('card-animation');
         el.classList.add('card-active');
         num[index].classList.add('num-active');
         let number = num[index].innerHTML;
         game.push({number, index});
         if(game.length === 2) {
             hideCard();
-            setTimeout(showCard, 400);
-            setTimeout(checkCard, 400);
+            setTimeout(showCard, 1000);
+            setTimeout(checkCard, 1000);
         };
     });
 });
@@ -62,13 +63,13 @@ console.log(card.length)
 function hideCard() {
     for(let cardIndex = 0; cardIndex < card.length; cardIndex++) {
         card[cardIndex].classList.add('card-active');
-    }
-}
+    };
+};
 function showCard() {
     for(let cardIndex = 0; cardIndex < card.length; cardIndex++) {
         card[cardIndex].classList.remove('card-active');
-    }
-}
+    };
+};
 function checkCard() {
     if(+game[0].number === +game[1].number) {
         point++;
@@ -79,6 +80,8 @@ function checkCard() {
         num[game[0].index].classList.remove('num-active');
         card[game[1].index].classList.remove('card-active');
         num[game[1].index].classList.remove('num-active');
+        card[game[0].index].classList.remove('card-animation');
+        card[game[1].index].classList.remove('card-animation');
         game = [];
     };
-}
+};

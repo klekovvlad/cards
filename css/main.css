@@ -21,7 +21,7 @@
 }
 
 .card {
-  border: 1px solid #000;
+  border: 1px solid #252525;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -35,12 +35,53 @@
   font-weight: 700;
   cursor: pointer;
   border-radius: 20px;
+  background: #c8c8c8;
+  -webkit-transition: all ease-in 0.4s;
+  transition: all ease-in 0.4s;
 }
 
 .card-active {
   pointer-events: none;
 }
 
+.card-animation {
+  -webkit-animation: card 0.4s ease-in-out forwards;
+          animation: card 0.4s ease-in-out forwards;
+}
+
+@-webkit-keyframes card {
+  33% {
+    -webkit-transform: scaleX(0);
+            transform: scaleX(0);
+  }
+  66% {
+    -webkit-transform: scaleX(0);
+            transform: scaleX(0);
+    background: #fff;
+  }
+  100% {
+    -webkit-transform: scaleX(1);
+            transform: scaleX(1);
+    background: #fff;
+  }
+}
+
+@keyframes card {
+  33% {
+    -webkit-transform: scaleX(0);
+            transform: scaleX(0);
+  }
+  66% {
+    -webkit-transform: scaleX(0);
+            transform: scaleX(0);
+    background: #fff;
+  }
+  100% {
+    -webkit-transform: scaleX(1);
+            transform: scaleX(1);
+    background: #fff;
+  }
+}
 .num {
   opacity: 0;
 }
