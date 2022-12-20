@@ -51,17 +51,34 @@ card.forEach(function(el, index) {
         let number = num[index].innerHTML;
         game.push({number, index});
         if(game.length === 2) {
-            if(+game[0].number === +game[1].number) {
-                point++;
-                pointItem.innerHTML = 'Количество очков:' + ' ' + point;
-                game = [];
-            }else{
-                card[game[0].index].classList.remove('card-active');
-                num[game[0].index].classList.remove('num-active');
-                card[game[1].index].classList.remove('card-active');
-                num[game[1].index].classList.remove('num-active');
-                game = [];
-            };
+            hideCard();
+            setTimeout(showCard, 400);
+            setTimeout(checkCard, 400);
         };
     });
 });
+console.log(card.length)
+
+function hideCard() {
+    for(let cardIndex = 0; cardIndex < card.length; cardIndex++) {
+        card[cardIndex].classList.add('card-active');
+    }
+}
+function showCard() {
+    for(let cardIndex = 0; cardIndex < card.length; cardIndex++) {
+        card[cardIndex].classList.remove('card-active');
+    }
+}
+function checkCard() {
+    if(+game[0].number === +game[1].number) {
+        point++;
+        pointItem.innerHTML = 'Количество очков:' + ' ' + point;
+        game = [];
+    }else{
+        card[game[0].index].classList.remove('card-active');
+        num[game[0].index].classList.remove('num-active');
+        card[game[1].index].classList.remove('card-active');
+        num[game[1].index].classList.remove('num-active');
+        game = [];
+    };
+}

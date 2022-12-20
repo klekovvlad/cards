@@ -41,3 +41,13 @@
     font-weight: 700;
     margin-bottom: 50px;
 }
+
+@media (max-width: 500px) {
+    .app {
+        max-width: 100%;
+        padding: 50px 10px;
+    }
+    .cards {
+        grid-gap: 10px;
+    }
+}
