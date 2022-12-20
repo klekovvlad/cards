@@ -1,7 +1,17 @@
 let generated = [];
+let images = [
+    './img/1.png',
+    './img/2.png',
+    './img/3.png',
+    './img/4.png',
+    './img/5.png',
+    './img/6.png',
+    './img/7.png',
+    './img/8.png',
+];
 const cardsLength = 16;
-let min = 1;
-let max = 99;
+let min = 0;
+let max = 7;
 const appMain = document.querySelector('.app');
 const cardsItem = document.createElement('div');
 cardsItem.classList.add('cards');
@@ -9,18 +19,18 @@ appMain.prepend(cardsItem);
 let x = 1;
 let i = 1;
 
-
 while(i <= cardsLength) {
     let random = Math.floor(Math.random() * (max - min) + min);
     const card = document.createElement('div');
     card.classList.add('card');
-    const cardNum = document.createElement('span');
+    const cardNum = document.createElement('img');
     cardNum.classList.add('num');
     cardsItem.append(card);
     card.append(cardNum);
     if(generated.length <= (cardsLength - 2)) {
         while(x <= 2) {
-            generated.push(random);
+            let image = images[random];
+            generated.push({random, image});
             x++;
         }
         x = 1;
@@ -44,12 +54,12 @@ let game = [];
 shuffle(generated); 
 shuffle(generated);
 card.forEach(function(el, index) {
-    num[index].innerHTML = generated[index];
+    num[index].src = generated[index].image;
     el.addEventListener('click', () => {
         el.classList.add('card-animation');
         el.classList.add('card-active');
         num[index].classList.add('num-active');
-        let number = num[index].innerHTML;
+        let number = generated[index].image;
         game.push({number, index});
         if(game.length === 2) {
             hideCard();
@@ -58,7 +68,6 @@ card.forEach(function(el, index) {
         };
     });
 });
-console.log(card.length)
 
 function hideCard() {
     for(let cardIndex = 0; cardIndex < card.length; cardIndex++) {
@@ -71,7 +80,7 @@ function showCard() {
     };
 };
 function checkCard() {
-    if(+game[0].number === +game[1].number) {
+    if(game[0].number === game[1].number) {
         point++;
         pointItem.innerHTML = 'Количество очков:' + ' ' + point;
         game = [];
