@@ -18,6 +18,23 @@ cardsItem.classList.add('cards');
 appMain.prepend(cardsItem);
 let x = 1;
 let i = 1;
+const reload = document.createElement('a');
+reload.classList.add('reload');
+reload.href = '/';
+
+const timerItem = document.createElement('div');
+timerItem.classList.add('timer');
+timer = 60;
+timerItem.innerHTML = timer;
+function timerUpdate() {
+    if (timer === 1) {
+        clearInterval(time);
+        loose();
+    }
+    timer--
+    timerItem.innerHTML = timer;
+}
+time = setInterval(timerUpdate, 1000);
 
 while(i <= cardsLength) {
     let random = Math.floor(Math.random() * (max - min) + min);
@@ -42,7 +59,7 @@ let point = 0;
 const pointItem = document.createElement('div');
 pointItem.classList.add('point');
 pointItem.innerHTML = 'Количество очков:' + '' + point;
-appMain.prepend(pointItem);
+appMain.prepend(pointItem, timerItem);
 
 const card = document.querySelectorAll('.card');
 const num = document.querySelectorAll('.num');
@@ -84,6 +101,9 @@ function checkCard() {
         point++;
         pointItem.innerHTML = 'Количество очков:' + ' ' + point;
         game = [];
+        if (point >= (cardsLength / 2)) {
+            winner();
+        }
     }else{
         card[game[0].index].classList.remove('card-active');
         num[game[0].index].classList.remove('num-active');
@@ -93,4 +113,28 @@ function checkCard() {
         card[game[1].index].classList.remove('card-animation');
         game = [];
     };
+};
+
+function createMessage() {
+    appMain.innerHTML = '';
+    const message = document.createElement('div');
+    message.classList.add('winner');
+    const messageHeader = document.createElement('span');
+    messageHeader.classList.add('winner-header');
+    message.append(messageHeader, reload);
+    appMain.append(message);
+    messageHeader;
+};
+
+function winner() {
+    createMessage();
+    const messageHeader = document.querySelector('.winner-header');
+    messageHeader.innerHTML = 'Игра пройдена!';
+
+};
+
+function loose() {
+    createMessage();
+    const messageHeader = document.querySelector('.winner-header');
+    messageHeader.innerHTML = 'Вы проиграли!';
 };
