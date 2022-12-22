@@ -8,6 +8,10 @@ let images = [
     './img/6.png',
     './img/7.png',
     './img/8.png',
+    './img/9.png',
+    './img/10.png',
+    './img/11.png',
+    './img/12.png',
 ];
 let generated = [];
 let game = [];
@@ -143,7 +147,7 @@ function startGame() {
     appMain.innerHTML = '';
     startTimer();
     let min = 0;
-    let max = 7;
+    let max = 12;
     const cardsItem = document.createElement('div');
     cardsItem.classList.add('cards');
     appMain.append(cardsItem, reload);
@@ -215,7 +219,6 @@ function checkCard() {
         point++;
         pointItem.innerHTML = 'Количество очков:' + ' ' + point;
         game = [];
-        console.log(point)
         if (point >= (cardsLength / 2)) {
             clearInterval(time);
             winner();
