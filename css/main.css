@@ -6,12 +6,18 @@
   font-size: 1em;
 }
 
+body {
+  overflow: hidden;
+}
+
 .app {
   max-width: 440px;
-  min-height: 70vh;
+  min-height: 100vh;
+  overflow: hidden;
   margin: 0px auto;
   padding: 50px 0px;
   position: relative;
+  background: #f4f4f4;
 }
 .app * {
   font-family: "Circe", sans-serif;
@@ -101,7 +107,7 @@
   font-size: 20px;
   text-align: center;
   font-weight: 700;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 .winner {
@@ -147,6 +153,7 @@
       -ms-flex-pack: center;
           justify-content: center;
   text-decoration: none;
+  margin-top: 30px;
 }
 
 .timer {
@@ -158,8 +165,8 @@
 }
 
 .start {
-  padding-top: 80px;
-  min-height: 70vh;
+  padding-top: 100px;
+  min-height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -193,6 +200,44 @@
           justify-content: center;
   font-size: 18px;
   margin-bottom: 20px;
+  color: #252525;
+}
+.start-input {
+  height: 60px;
+  width: 300px;
+  border: none;
+  outline: none;
+  font-size: 1em;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: #252525;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #c8c8c8;
+}
+
+.developer {
+  position: absolute;
+  bottom: 20px;
+  font-size: 14px;
+  text-decoration: none;
+  color: #252525;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.rules-text {
+  text-align: center;
+  padding: 0px 30px;
 }
 
 @media (max-width: 500px) {

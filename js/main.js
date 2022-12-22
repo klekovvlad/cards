@@ -29,10 +29,26 @@ function startMenu() {
     const startButton = document.createElement('button');
     startButton.classList.add('start-button');
     startButton.innerHTML = 'Новая игра';
-    start.append(startHeader, startButton);
-    appMain.append(start);
+    const rulesButton = document.createElement('button');
+    rulesButton.classList.add('start-button', 'rules-button');
+    rulesButton.innerHTML = 'Правила игры';
+    const developer = document.createElement('a');
+    developer.classList.add('developer');
+    developer.href = 'https://t.me/Klekov';
+    developer.innerHTML = 'Vladislav Klekov';
+    start.append(startHeader, startButton, rulesButton);
+    appMain.append(start, developer);
     startButton.addEventListener('click', () => {
         checkEasy();
+    });
+    rulesButton.addEventListener('click', () => {
+        start.innerHTML = '';
+        startHeader.innerHTML = 'Правила игры';
+        reload.innerHTML = 'Назад'
+        const rulesText = document.createElement('p');
+        rulesText.classList.add('rules-text');
+        rulesText.innerHTML = 'Ваша цель - найти пары картинок, всего 8 пар. Но это не все - сверху тикает таймер, когда он закончится - вы проиграете! Время вы выбираете сами. Легкий уровень - 60 сек., Сложный уровень - 30 сек., Свободный - от 0 сек. до 999 сек. <br> Приятной игры!'
+        start.append(startHeader, rulesText, reload);
     });
 };
 
@@ -40,19 +56,55 @@ function checkEasy() {
     const start = document.querySelector('.start');
     const startHeader = document.querySelector('.start-header');
     const startButton = document.querySelector('.start-button');
+    const rulesButton = document.querySelector('.rules-button');
     const startButtonHard = document.createElement('button');
     startButtonHard.classList.add('start-button');
-    startButton.innerHTML = 'Легкая';
-    startButtonHard.innerHTML = 'Сложная';
+    startButton.innerHTML = 'Легкий';
+    startButtonHard.innerHTML = 'Сложный';
     startHeader.innerHTML = 'Выбери уровень сложности';
-    start.append(startButtonHard);
+    const startButtonFree = document.createElement('button');
+    startButtonFree.classList.add('start-button');
+    startButtonFree.innerHTML = 'Свободный';
+    start.append(startButtonFree, startButtonHard);
+    rulesButton.remove();
     startButton.addEventListener('click', () => {
         startGame();
     });
     startButtonHard.addEventListener('click', () => {
         timer = 30;
         startGame();
-    })
+    });
+    startButtonFree.addEventListener('click', () => {
+        start.innerHTML = '';
+        start.append(startHeader);
+        startHeader.innerHTML = 'Введи необходимое время';
+        startButton.innerHTML = 'Начать игру';
+        const startImput = document.createElement('input');
+        startImput.classList.add('start-input');
+        startImput.type = 'num';
+        startImput.maxLength = '3';
+        start.append(startImput, startButton);
+        console.log(startImput);
+        startImput.addEventListener('keyup', () => {
+            startImput.value = startImput.value.replace(/[^\d]/g, "");
+        });
+        startButton.addEventListener('click', () => {
+            // if(startImput.value > 90) {
+            //     startImput.value = '';
+            // }else if(startImput.value < 10) {
+            //     startImput.value = '';
+            // }else{
+
+            // }
+            if(startImput.value === '') {
+                timer = 60;
+            }else{
+                timer = +startImput.value;
+                
+            }
+            startGame();
+        });
+    });
 }
 
 function startTimer() {
@@ -60,7 +112,7 @@ function startTimer() {
     timerItem.classList.add('timer');
     timerItem.innerHTML = timer;
     function timerUpdate() {
-        if (timer === 1) {
+        if (timer === 0) {
             clearInterval(time);
             loose();
         }
@@ -78,7 +130,7 @@ function startGame() {
     let max = 7;
     const cardsItem = document.createElement('div');
     cardsItem.classList.add('cards');
-    appMain.prepend(cardsItem);
+    appMain.append(cardsItem, reload);
     let x = 1;
     let i = 1;
     while(i <= cardsLength) {
