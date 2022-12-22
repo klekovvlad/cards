@@ -8,6 +8,9 @@
     background: #f4f4f4;
     * {
         font-family: 'Circe', sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
 }
 
@@ -166,6 +169,11 @@
 .rules-text {
     text-align: center;
     padding: 0px 30px;
+}
+
+.record-text {
+    font-size: 18px;
+    margin-bottom: 10px;
 }
 
 @media (max-width: 500px) {

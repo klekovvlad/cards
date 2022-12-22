@@ -20,8 +20,15 @@ reload.innerHTML = 'Начать заново';
 reload.addEventListener('click', (e) => {
     e.preventDefault();
     location.reload();
-})
-// reload.href = window.location.reload();
+});
+
+if(localStorage.win === undefined) {
+    localStorage.setItem('win', 0);
+}
+if(localStorage.loose === undefined) {
+    localStorage.setItem('loose', 0);
+}
+
 startMenu();
 
 function startMenu() {
@@ -33,6 +40,9 @@ function startMenu() {
     const startButton = document.createElement('button');
     startButton.classList.add('start-button');
     startButton.innerHTML = 'Новая игра';
+    const recordButton = document.createElement('button');
+    recordButton.classList.add('start-button', 'record-button');
+    recordButton.innerHTML = 'Ваши рекорды';
     const rulesButton = document.createElement('button');
     rulesButton.classList.add('start-button', 'rules-button');
     rulesButton.innerHTML = 'Правила игры';
@@ -40,7 +50,7 @@ function startMenu() {
     developer.classList.add('developer');
     developer.href = 'https://t.me/Klekov';
     developer.innerHTML = 'Vladislav Klekov';
-    start.append(startHeader, startButton, rulesButton);
+    start.append(startHeader, startButton, recordButton, rulesButton);
     appMain.append(start, developer);
     startButton.addEventListener('click', () => {
         checkEasy();
@@ -48,11 +58,23 @@ function startMenu() {
     rulesButton.addEventListener('click', () => {
         start.innerHTML = '';
         startHeader.innerHTML = 'Правила игры';
-        reload.innerHTML = 'Назад'
+        reload.innerHTML = 'Назад';
         const rulesText = document.createElement('p');
         rulesText.classList.add('rules-text');
         rulesText.innerHTML = 'Ваша цель - найти пары картинок, всего 8 пар. Но это не все - сверху тикает таймер, когда он закончится - вы проиграете! Время вы выбираете сами. Легкий уровень - 60 сек., Сложный уровень - 30 сек., Свободный - от 0 сек. до 999 сек. <br> Приятной игры!'
         start.append(startHeader, rulesText, reload);
+    });
+    recordButton.addEventListener('click', () => {
+        start.innerHTML = '';
+        startHeader.innerHTML = 'Ваши рекорды';
+        reload.innerHTML = 'Назад'
+        const winPoint = document.createElement('p');
+        winPoint.classList.add('record-text');
+        winPoint.innerHTML = 'Выйграли' + ' ' + localStorage.win + ' ' + 'раз';
+        const loosePoint = document.createElement('p');
+        loosePoint.classList.add('record-text');
+        loosePoint.innerHTML = 'Проиграли' + ' ' + localStorage.loose + ' ' + 'раз';
+        start.append(startHeader, winPoint, loosePoint, reload);
     });
 };
 
@@ -60,7 +82,6 @@ function checkEasy() {
     const start = document.querySelector('.start');
     const startHeader = document.querySelector('.start-header');
     const startButton = document.querySelector('.start-button');
-    const rulesButton = document.querySelector('.rules-button');
     const startButtonHard = document.createElement('button');
     startButtonHard.classList.add('start-button');
     startButton.innerHTML = 'Легкий';
@@ -69,8 +90,8 @@ function checkEasy() {
     const startButtonFree = document.createElement('button');
     startButtonFree.classList.add('start-button');
     startButtonFree.innerHTML = 'Свободный';
-    start.append(startButtonFree, startButtonHard);
-    rulesButton.remove();
+    start.innerHTML = '';
+    start.append(startHeader, startButton, startButtonFree, startButtonHard);
     startButton.addEventListener('click', () => {
         startGame();
     });
@@ -88,23 +109,14 @@ function checkEasy() {
         startImput.type = 'num';
         startImput.maxLength = '3';
         start.append(startImput, startButton);
-        console.log(startImput);
         startImput.addEventListener('keyup', () => {
             startImput.value = startImput.value.replace(/[^\d]/g, "");
         });
         startButton.addEventListener('click', () => {
-            // if(startImput.value > 90) {
-            //     startImput.value = '';
-            // }else if(startImput.value < 10) {
-            //     startImput.value = '';
-            // }else{
-
-            // }
             if(startImput.value === '') {
                 timer = 60;
             }else{
-                timer = +startImput.value;
-                
+                timer = startImput.value;
             }
             startGame();
         });
@@ -120,7 +132,7 @@ function startTimer() {
             clearInterval(time);
             loose();
         }
-        timer--
+        timer--;
         timerItem.innerHTML = timer;
     }
     time = setInterval(timerUpdate, 1000);
@@ -234,11 +246,12 @@ function winner() {
     createMessage();
     const messageHeader = document.querySelector('.winner-header');
     messageHeader.innerHTML = 'Игра пройдена!';
-
+    localStorage.win = JSON.parse(localStorage.win) + 1;
 };
 
 function loose() {
     createMessage();
     const messageHeader = document.querySelector('.winner-header');
     messageHeader.innerHTML = 'Вы проиграли!';
+    localStorage.loose = JSON.parse(localStorage.loose) + 1;
 };
