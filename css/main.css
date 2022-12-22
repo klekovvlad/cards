@@ -13,6 +13,9 @@
   padding: 50px 0px;
   position: relative;
 }
+.app * {
+  font-family: "Circe", sans-serif;
+}
 
 .cards {
   min-height: 70vh;
@@ -128,10 +131,22 @@
 .reload {
   display: block;
   margin: 0px auto;
-  width: 50px;
+  width: 300px;
   height: 50px;
-  border-radius: 20px;
+  border-radius: 5px;
   background: #c8c8c8;
+  color: #252525;
+  font-size: 18px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-decoration: none;
 }
 
 .timer {
@@ -140,6 +155,44 @@
   left: 20px;
   font-size: 20px;
   font-weight: 700;
+}
+
+.start {
+  padding-top: 80px;
+  min-height: 70vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.start-header {
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 60px;
+}
+.start-button {
+  border: none;
+  border-radius: 5px;
+  background: #c8c8c8;
+  width: 300px;
+  height: 60px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 18px;
+  margin-bottom: 20px;
 }
 
 @media (max-width: 500px) {
