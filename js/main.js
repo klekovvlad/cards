@@ -17,7 +17,11 @@ timer = 60;
 const reload = document.createElement('a');
 reload.classList.add('reload');
 reload.innerHTML = 'Начать заново';
-reload.href = '/';
+reload.addEventListener('click', (e) => {
+    e.preventDefault();
+    location.reload();
+})
+// reload.href = window.location.reload();
 startMenu();
 
 function startMenu() {
